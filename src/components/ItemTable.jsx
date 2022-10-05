@@ -1,6 +1,18 @@
-import{ Table, Button } from 'react-bootstrap';
+import { useContext } from 'react';
+import { Table, Button } from 'react-bootstrap';
+import { DateTimeFormatter, LocalDate } from '@js-joda/core';
+import { ItemContext } from '../context/ItemContext';
 
 export default function ItemTable() {
+  const { items } = useContext(ItemContext);
+
+  // 日付のフォーマット
+  const formatter = DateTimeFormatter.ofPattern('yyyy年MM月dd日');
+  const formatDate = (stringDate) => {
+    const localDate = LocalDate.parse(stringDate);
+    return formatter.format(localDate);
+  };
+
   return (
     <Table bordered hover className="bg-white">
         <thead className='bg-dark text-white'>
@@ -15,56 +27,18 @@ export default function ItemTable() {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>ノートパソコン</td>
-            <td>5</td>
-            <td>総務部</td>
-            <td></td>
-            <td>2022年11月10日</td>
-            <td><Button variant="warning">編集</Button></td>
-            <td><Button variant="danger">削除</Button></td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>ノートパソコン</td>
-            <td>5</td>
-            <td>総務部</td>
-            <td></td>
-            <td>2022年11月10日</td>
-            <td><Button variant="warning">編集</Button></td>
-            <td><Button variant="danger">削除</Button></td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>ノートパソコン</td>
-            <td>5</td>
-            <td>総務部</td>
-            <td></td>
-            <td>2022年11月10日</td>
-            <td><Button variant="warning">編集</Button></td>
-            <td><Button variant="danger">削除</Button></td>
-          </tr>
-          <tr>
-            <td>4</td>
-            <td>ノートパソコン</td>
-            <td>5</td>
-            <td>総務部</td>
-            <td></td>
-            <td>2022年11月10日</td>
-            <td><Button variant="warning">編集</Button></td>
-            <td><Button variant="danger">削除</Button></td>
-          </tr>
-          <tr>
-            <td>5</td>
-            <td>ノートパソコン</td>
-            <td>5</td>
-            <td>総務部</td>
-            <td></td>
-            <td>2022年11月10日</td>
-            <td><Button variant="warning">編集</Button></td>
-            <td><Button variant="danger">削除</Button></td>
-          </tr>
+          {items.map(item => (
+            <tr key={item.id}>
+              <td>{item.id}</td>
+              <td>{item.name}</td>
+              <td>{item.amount}</td>
+              <td>{item.place.name}</td>
+              <td>{item.note}</td>
+              <td>{formatDate(item.registeredAt)}</td>
+              <td><Button variant="warning">編集</Button></td>
+              <td><Button variant="danger">削除</Button></td>
+            </tr>
+          ))}
         </tbody>
     </Table>
   );
