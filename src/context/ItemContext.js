@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react';
+import { createContext, useState, useEffect } from 'react';
 
 export const ItemContext = createContext();
 
@@ -9,19 +9,31 @@ export const ItemProvider = ({ children }) => {
     {id: 3, name: '会議室'}
   ];
 
-  const initialData = [
-    {id: 1, name: 'ノートPC', amount: 5, place: {id: 1, name: '総務部'}, note: 'Webカメラ付き', registeredAt: '2022-11-01'},
-    {id: 2, name: 'デスクトップPC', amount: 3, place: {id: 2, name: '開発部'}, note: '', registeredAt: '2022-11-02'},
-    {id: 3, name: 'ホワイトボード', amount: 1, place: {id: 3, name: '会議室'}, note: '', registeredAt: '2022-11-05'}
-  ];
+  const API_BASE_URL = 'http://localhost:5000';
 
-  const [items, setItems] = useState(initialData);
+  const [items, setItems] = useState([]);
 
-  const addItem = (item) => {
-    item.id = (new Date()).getTime();
-
-    setItems([...items, item]);
+  const getItems = async () => {
+    const res = await fetch(`${API_BASE_URL}/itemList`);
+    const data = await res.json();
+    setItems(data);
   };
+
+  const addItem = async (item) => {
+    const res = await fetch(`${API_BASE_URL}/itemList`, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(item)
+    });
+
+    const data = await res.json();
+
+    setItems([...items, data]);
+  };
+
+  useEffect(() => {
+    getItems();
+  }, []);
 
   return (
     <ItemContext.Provider value={{ placeList, items, addItem }}>

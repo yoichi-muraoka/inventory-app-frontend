@@ -1,0 +1,12 @@
+{
+  "placeList": [
+    {"id": 1, "name": "総務部"},
+    {"id": 2, "name": "開発部"},
+    {"id": 3, "name": "会議室"}
+  ],
+  "itemList": [
+    {"id": 1, "name": "ノートPC", "amount": 5, "place": {"id": 1, "name": "総務部"}, "note": "Webカメラ付き", "registeredAt": "2022-11-01"},
+    {"id": 2, "name": "デスクトップPC", "amount": 3, "place": {"id": 2, "name": "開発部"}, "note": "", "registeredAt": "2022-11-02"},
+    {"id": 3, "name": "ホワイトボード", "amount": 1, "place": {"id": 3, "name": "会議室"}, "note": "", "registeredAt": "2022-11-05"}
+  ]
+}
