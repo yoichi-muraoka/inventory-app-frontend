@@ -1,8 +1,12 @@
+import Header from "./components/Header";
+import Main from "./components/Main";
+
 function App() {
   return (
-    <div>
-      <h1>備品管理システム</h1>
-    </div>
+    <>
+      <Header />
+      <Main />
+    </>
   );
 }
 
