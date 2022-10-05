@@ -11,7 +11,14 @@ export const ItemProvider = ({ children }) => {
 
   const API_BASE_URL = 'http://localhost:5000';
 
+  const [places, setPlaces] = useState([]);
   const [items, setItems] = useState([]);
+
+  const getPlaces = async () => {
+    const res = await fetch(`${API_BASE_URL}/placeList`);
+    const data = await res.json();
+    setPlaces(data);
+  };
 
   const getItems = async () => {
     const res = await fetch(`${API_BASE_URL}/itemList`);
@@ -32,11 +39,12 @@ export const ItemProvider = ({ children }) => {
   };
 
   useEffect(() => {
+    getPlaces();
     getItems();
   }, []);
 
   return (
-    <ItemContext.Provider value={{ placeList, items, addItem }}>
+    <ItemContext.Provider value={{ places, items, addItem }}>
       {children}
     </ItemContext.Provider>
   );

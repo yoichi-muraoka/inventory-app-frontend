@@ -4,7 +4,7 @@ import { LocalDate } from '@js-joda/core';
 import { ItemContext } from '../context/ItemContext';
 
 export default function ItemForm() {
-  const { placeList, addItem } = useContext(ItemContext);
+  const { places, addItem } = useContext(ItemContext);
 
   const [submitDisabled, setSubmitDisabled] = useState(true);
 
@@ -14,7 +14,7 @@ export default function ItemForm() {
   const [note, setNote] = useState('');
 
   const getPlaceById = (placeId) => {
-    for(let place of placeList){
+    for(let place of places){
       if(place.id === placeId) return place;
     }
   };
@@ -67,7 +67,7 @@ export default function ItemForm() {
       <Form.Group className="mb-3">
         <Form.Label>保管場所</Form.Label>
         <Form.Select value={placeId} onChange={e => setPlaceId(Number(e.target.value))}>
-          {placeList.map(place => (
+          {places.map(place => (
             <option key={place.id} value={place.id}>{place.name}</option>
           ))}
         </Form.Select>
