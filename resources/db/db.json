@@ -68,6 +68,72 @@
       "registeredAt": "2022-10-05",
       "note": "",
       "id": 5
+    },
+    {
+      "name": "マウス",
+      "amount": 5,
+      "place": {
+        "id": 1,
+        "name": "総務部"
+      },
+      "registeredAt": "2022-10-06",
+      "note": "",
+      "id": 6
+    },
+    {
+      "name": "キーボード",
+      "amount": 1,
+      "place": {
+        "id": 1,
+        "name": "総務部"
+      },
+      "registeredAt": "2022-10-06",
+      "note": "",
+      "id": 7
+    },
+    {
+      "name": "イヤホン",
+      "amount": 3,
+      "place": {
+        "id": 2,
+        "name": "開発部"
+      },
+      "registeredAt": "2022-10-06",
+      "note": "",
+      "id": 8
+    },
+    {
+      "name": "時計",
+      "amount": 1,
+      "place": {
+        "id": 1,
+        "name": "総務部"
+      },
+      "registeredAt": "2022-10-06",
+      "note": "",
+      "id": 9
+    },
+    {
+      "name": "椅子",
+      "amount": 1,
+      "place": {
+        "id": 1,
+        "name": "総務部"
+      },
+      "registeredAt": "2022-10-06",
+      "note": "",
+      "id": 10
+    },
+    {
+      "name": "長机",
+      "amount": 1,
+      "place": {
+        "id": 1,
+        "name": "総務部"
+      },
+      "registeredAt": "2022-10-06",
+      "note": "",
+      "id": 11
     }
   ]
 }
