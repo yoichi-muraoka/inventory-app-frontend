@@ -1,5 +1,5 @@
 {
-  "placeList": [
+  "places": [
     {
       "id": 1,
       "name": "総務部"
@@ -13,7 +13,7 @@
       "name": "会議室"
     }
   ],
-  "itemList": [
+  "items": [
     {
       "id": 1,
       "name": "ノートPC",

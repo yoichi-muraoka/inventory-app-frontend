@@ -9,19 +9,19 @@ export const ItemProvider = ({ children }) => {
   const [items, setItems] = useState([]);
 
   const getPlaces = async () => {
-    const res = await fetch(`${API_BASE_URL}/placeList`);
+    const res = await fetch(`${API_BASE_URL}/places`);
     const data = await res.json();
     setPlaces(data);
   };
 
   const getItems = async () => {
-    const res = await fetch(`${API_BASE_URL}/itemList`);
+    const res = await fetch(`${API_BASE_URL}/items`);
     const data = await res.json();
     setItems(data);
   };
 
   const addItem = async (item) => {
-    const res = await fetch(`${API_BASE_URL}/itemList`, {
+    const res = await fetch(`${API_BASE_URL}/items`, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(item)
