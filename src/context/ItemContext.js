@@ -11,6 +11,7 @@ export const ItemProvider = ({ children }) => {
   const NUM_PER_PAGE = 3;
   const [currentPage, setCurrentPage] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
+  const [totalPages, setTotalPages] = useState(1);
 
   // 削除モーダル
   const defaultItem = {id: 0, name: '', amount: 1, place: {id: 1, name: '総務部'}, note: '', registeredAt: ''};
@@ -37,25 +38,41 @@ export const ItemProvider = ({ children }) => {
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(item)
     });
+    getItems();
   };
 
   const deleteItem = async (item) => {
     await fetch(`${API_BASE_URL}/items/${item.id}`, {
       method: 'DELETE'
     });
+    getItems();
   };
 
   useEffect(() => {
     getPlaces();
-    getItems();
+    console.log('e1');
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
     getItems();
-  }, [currentPage, addItem, deleteItem]);
+    console.log('e2');
+    // eslint-disable-next-line
+  }, [currentPage, totalItems]);
+
+  useEffect(() => {
+    const total = Math.ceil(totalItems / NUM_PER_PAGE);
+    setTotalPages(total);
+
+    if(currentPage !== 1 && total < currentPage) {
+      setCurrentPage(total);
+    }
+    console.log('e3');
+    // eslint-disable-next-line
+  }, [totalItems]);
 
   return (
-    <ItemContext.Provider value={{ places, items, addItem, NUM_PER_PAGE, currentPage, setCurrentPage, totalItems, deleteItem, defaultItem, deletingItem, setDeletingItem, showDeleteModal, setShowDeleteModal}}>
+    <ItemContext.Provider value={{ places, items, addItem, currentPage, setCurrentPage, totalPages, deleteItem, defaultItem, deletingItem, setDeletingItem, showDeleteModal, setShowDeleteModal}}>
       {children}
     </ItemContext.Provider>
   );

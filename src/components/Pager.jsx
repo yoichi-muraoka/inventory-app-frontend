@@ -3,10 +3,8 @@ import{ Pagination } from 'react-bootstrap';
 import { ItemContext } from '../context/ItemContext';
 
 export default function Pager() {
-  const { currentPage, setCurrentPage, totalItems, NUM_PER_PAGE } = useContext(ItemContext);
+  const { currentPage, setCurrentPage, totalPages } = useContext(ItemContext);
   
-  const totalPages = Math.ceil(totalItems / NUM_PER_PAGE);
-
   const startPage = 1;
   const endPage = totalPages;
   
