@@ -4,13 +4,19 @@ import { DateTimeFormatter, LocalDate } from '@js-joda/core';
 import { ItemContext } from '../context/ItemContext';
 
 export default function ItemTable() {
-  const { items } = useContext(ItemContext);
+  const { items, setDeletingItem, setShowDeleteModal } = useContext(ItemContext);
 
   // 日付のフォーマット
   const formatter = DateTimeFormatter.ofPattern('yyyy年MM月dd日');
   const formatDate = (stringDate) => {
     const localDate = LocalDate.parse(stringDate);
     return formatter.format(localDate);
+  };
+
+  // 削除ボタン押下時
+  const handleClickDelete = (item) => {
+    setShowDeleteModal(true);
+    setDeletingItem(item);
   };
 
   return (
@@ -36,7 +42,7 @@ export default function ItemTable() {
               <td>{item.note}</td>
               <td>{formatDate(item.registeredAt)}</td>
               <td><Button variant="warning">編集</Button></td>
-              <td><Button variant="danger">削除</Button></td>
+              <td><Button variant="danger" onClick={() => handleClickDelete(item)}>削除</Button></td>
             </tr>
           ))}
         </tbody>

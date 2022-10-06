@@ -1,4 +1,5 @@
 import{ Container } from 'react-bootstrap';
+import DeleteModal from './DeleteModal';
 import ItemForm from './ItemForm';
 import ItemTable from './ItemTable';
 import Pager from './Pager';
@@ -12,6 +13,9 @@ export default function Main() {
 
       <h2 className="mt-4 mb-3">備品追加</h2>
       <ItemForm />
+
+      {/* 削除モーダル */}
+      <DeleteModal />
     </Container>
   );
 }

@@ -12,6 +12,11 @@ export const ItemProvider = ({ children }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
 
+  // 削除モーダル
+  const defaultItem = {id: 0, name: '', amount: 1, place: {id: 0, name: ''}, note: '', registeredAt: ''};
+  const [deletingItem, setDeletingItem] = useState(defaultItem);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+
   const getPlaces = async () => {
     const res = await fetch(`${API_BASE_URL}/places`);
     const data = await res.json();
@@ -33,6 +38,10 @@ export const ItemProvider = ({ children }) => {
     });
   };
 
+  const deleteItem = (item) => {
+    console.log(item);
+  };
+
   useEffect(() => {
     getPlaces();
     getItems();
@@ -43,7 +52,7 @@ export const ItemProvider = ({ children }) => {
   }, [currentPage, addItem]);
 
   return (
-    <ItemContext.Provider value={{ places, items, addItem, NUM_PER_PAGE, currentPage, setCurrentPage, totalItems}}>
+    <ItemContext.Provider value={{ places, items, addItem, NUM_PER_PAGE, currentPage, setCurrentPage, totalItems, deleteItem, deletingItem, setDeletingItem, showDeleteModal, setShowDeleteModal}}>
       {children}
     </ItemContext.Provider>
   );
