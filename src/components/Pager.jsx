@@ -20,8 +20,12 @@ export default function Pager() {
   }
 
   return (
-    <Pagination>
-      {paginationItems}
-    </Pagination>
+    <>
+      {paginationItems.length > 1 && (
+        <Pagination>
+          {paginationItems}
+        </Pagination>
+      )}
+    </>
   );
 }

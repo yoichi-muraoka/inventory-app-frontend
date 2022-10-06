@@ -8,7 +8,7 @@ export const ItemProvider = ({ children }) => {
   const [items, setItems] = useState([]);
 
   // ページネーション
-  const NUM_PER_PAGE = 2;
+  const NUM_PER_PAGE = 3;
   const [currentPage, setCurrentPage] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
 
