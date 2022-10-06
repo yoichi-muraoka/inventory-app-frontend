@@ -13,7 +13,7 @@ export const ItemProvider = ({ children }) => {
   const [totalItems, setTotalItems] = useState(0);
 
   // 削除モーダル
-  const defaultItem = {id: 0, name: '', amount: 1, place: {id: 0, name: ''}, note: '', registeredAt: ''};
+  const defaultItem = {id: 0, name: '', amount: 1, place: {id: 1, name: '総務部'}, note: '', registeredAt: ''};
   const [deletingItem, setDeletingItem] = useState(defaultItem);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
@@ -23,6 +23,7 @@ export const ItemProvider = ({ children }) => {
     setPlaces(data);
   };
 
+  // 備品のCRUD処理
   const getItems = async () => {
     const res = await fetch(`${API_BASE_URL}/items?_page=${currentPage}&_limit=${NUM_PER_PAGE}`);
     const data = await res.json();
@@ -38,8 +39,10 @@ export const ItemProvider = ({ children }) => {
     });
   };
 
-  const deleteItem = (item) => {
-    console.log(item);
+  const deleteItem = async (item) => {
+    await fetch(`${API_BASE_URL}/items/${item.id}`, {
+      method: 'DELETE'
+    });
   };
 
   useEffect(() => {
@@ -49,10 +52,10 @@ export const ItemProvider = ({ children }) => {
 
   useEffect(() => {
     getItems();
-  }, [currentPage, addItem]);
+  }, [currentPage, addItem, deleteItem]);
 
   return (
-    <ItemContext.Provider value={{ places, items, addItem, NUM_PER_PAGE, currentPage, setCurrentPage, totalItems, deleteItem, deletingItem, setDeletingItem, showDeleteModal, setShowDeleteModal}}>
+    <ItemContext.Provider value={{ places, items, addItem, NUM_PER_PAGE, currentPage, setCurrentPage, totalItems, deleteItem, defaultItem, deletingItem, setDeletingItem, showDeleteModal, setShowDeleteModal}}>
       {children}
     </ItemContext.Provider>
   );

@@ -3,14 +3,14 @@ import{ Modal, Button } from 'react-bootstrap';
 import { ItemContext } from '../context/ItemContext';
 
 export default function DeleteModal() {
-  const { defaultItem, deletingItem, setDeletingItem, showDeleteModal, setShowDeleteModal } = useContext(ItemContext);
+  const { defaultItem, deleteItem, deletingItem, setDeletingItem, showDeleteModal, setShowDeleteModal } = useContext(ItemContext);
 
   const handleClose = () => {
     setShowDeleteModal(false);
   };
 
   const confirmDelete = () => {
-    // 削除処理
+    deleteItem(deletingItem);
     setShowDeleteModal(false);
     setDeletingItem(defaultItem);
   };
