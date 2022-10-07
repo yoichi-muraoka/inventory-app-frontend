@@ -1,8 +1,13 @@
+import Header from "./components/Header";
+import Main from "./components/Main";
+import { ItemProvider } from "./context/ItemContext";
+
 function App() {
   return (
-    <div>
-      <h1>備品管理システム</h1>
-    </div>
+    <ItemProvider>
+      <Header />
+      <Main />
+    </ItemProvider>
   );
 }
 
