@@ -4,7 +4,7 @@ import { LocalDate } from '@js-joda/core';
 import { ItemContext } from '../context/ItemContext';
 
 export default function ItemForm() {
-  const { places, addItem } = useContext(ItemContext);
+  const { places, addItem, setShowSaveModal } = useContext(ItemContext);
 
   const [submitDisabled, setSubmitDisabled] = useState(true);
 
@@ -26,6 +26,7 @@ export default function ItemForm() {
     setPlaceId(1);
     setNote('');
     setSubmitDisabled(true);
+    setShowSaveModal(false);
   };
 
   // リアルタイム・バリデーション
@@ -76,7 +77,10 @@ export default function ItemForm() {
         <Form.Label>備考</Form.Label>
         <Form.Control type="text" value={note} onChange={e => setNote(e.target.value)} />
       </Form.Group>
-      <Button variant="primary" type="submit" disabled={submitDisabled}>送信</Button>
+      <div className="text-end">
+        <Button variant="secondary" onClick={() => setShowSaveModal(false)}>キャンセル</Button>
+        <Button className="ms-2" variant="primary" type="submit" disabled={submitDisabled}>保存</Button>
+      </div>
     </Form>
   );
 }

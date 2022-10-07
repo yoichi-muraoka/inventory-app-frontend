@@ -13,8 +13,9 @@ export const ItemProvider = ({ children }) => {
   const [totalItems, setTotalItems] = useState(0);
   const [totalPages, setTotalPages] = useState(1);
 
-  // 削除モーダル
+  // 追加・編集・削除モーダル
   const defaultItem = {id: 0, name: '', amount: 1, place: {id: 1, name: '総務部'}, note: '', registeredAt: ''};
+  const [showSaveModal, setShowSaveModal] = useState(false);
   const [deletingItem, setDeletingItem] = useState(defaultItem);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
@@ -72,7 +73,7 @@ export const ItemProvider = ({ children }) => {
   }, [totalItems]);
 
   return (
-    <ItemContext.Provider value={{ places, items, addItem, currentPage, setCurrentPage, totalPages, deleteItem, defaultItem, deletingItem, setDeletingItem, showDeleteModal, setShowDeleteModal}}>
+    <ItemContext.Provider value={{ places, items, addItem, currentPage, setCurrentPage, totalPages, deleteItem, defaultItem, deletingItem, setDeletingItem, showDeleteModal, setShowDeleteModal, showSaveModal, setShowSaveModal}}>
       {children}
     </ItemContext.Provider>
   );
