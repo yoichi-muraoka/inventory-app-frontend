@@ -16,6 +16,8 @@ export const ItemProvider = ({ children }) => {
   // 追加・編集・削除モーダル
   const defaultItem = {id: 0, name: '', amount: 1, place: {id: 1, name: '総務部'}, note: '', registeredAt: ''};
   const [showSaveModal, setShowSaveModal] = useState(false);
+  const [editMode, setEditMode] = useState(false);
+  const [editingItem, setEditingItem] = useState(defaultItem);
   const [deletingItem, setDeletingItem] = useState(defaultItem);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
@@ -42,6 +44,15 @@ export const ItemProvider = ({ children }) => {
     getItems();
   };
 
+  const editItem = async (item) => {
+    await fetch(`${API_BASE_URL}/items/${item.id}`, {
+      method: 'PUT',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(item)
+    });
+    getItems();
+  };
+
   const deleteItem = async (item) => {
     await fetch(`${API_BASE_URL}/items/${item.id}`, {
       method: 'DELETE'
@@ -51,13 +62,13 @@ export const ItemProvider = ({ children }) => {
 
   useEffect(() => {
     getPlaces();
-    console.log('e1');
+
     // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
     getItems();
-    console.log('e2');
+
     // eslint-disable-next-line
   }, [currentPage, totalItems]);
 
@@ -68,12 +79,19 @@ export const ItemProvider = ({ children }) => {
     if(currentPage !== 1 && total < currentPage) {
       setCurrentPage(total);
     }
-    console.log('e3');
+
     // eslint-disable-next-line
   }, [totalItems]);
 
   return (
-    <ItemContext.Provider value={{ places, items, addItem, currentPage, setCurrentPage, totalPages, deleteItem, defaultItem, deletingItem, setDeletingItem, showDeleteModal, setShowDeleteModal, showSaveModal, setShowSaveModal}}>
+    <ItemContext.Provider
+    value={{
+      places, items, defaultItem,
+      addItem, editItem, showSaveModal, setShowSaveModal,
+      editMode, setEditMode, editingItem, setEditingItem,
+      deleteItem, deletingItem, setDeletingItem, showDeleteModal,
+      currentPage, setCurrentPage, totalPages, setShowDeleteModal,
+    }}>
       {children}
     </ItemContext.Provider>
   );

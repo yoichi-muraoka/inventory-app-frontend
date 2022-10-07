@@ -7,17 +7,19 @@ import Pager from './Pager';
 import { ItemContext } from '../context/ItemContext';
 
 export default function Main() {
-  const { setShowSaveModal } = useContext(ItemContext);
+  const { setShowSaveModal, setEditMode, setEditingItem, defaultItem } = useContext(ItemContext);
 
-  const handleOnClickAdd = () => {
+  const handleClickAdd = () => {
+    setEditMode(false);
     setShowSaveModal(true);
+    setEditingItem(defaultItem)
   };
 
   return (
     <Container>
       <div className="mt-4 mb-3 d-flex justify-content-between">
         <h2 className="">備品リスト</h2>
-        <Button variant="primary" onClick={handleOnClickAdd}>備品の追加</Button>
+        <Button variant="primary" onClick={handleClickAdd}>備品の追加</Button>
       </div>
       <ItemTable />
       <Pager />

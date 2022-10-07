@@ -4,14 +4,15 @@ import { LocalDate } from '@js-joda/core';
 import { ItemContext } from '../context/ItemContext';
 
 export default function ItemForm() {
-  const { places, addItem, setShowSaveModal } = useContext(ItemContext);
+  const { places, addItem, setShowSaveModal, editMode, editItem, editingItem, defaultItem } = useContext(ItemContext);
 
-  const [submitDisabled, setSubmitDisabled] = useState(true);
+  const [submitDisabled, setSubmitDisabled] = useState(!editMode);
 
-  const [name, setName] = useState('');
-  const [amount, setAmount] = useState(1);
-  const [placeId, setPlaceId] = useState(1);
-  const [note, setNote] = useState('');
+  const [id, setId] = useState(editingItem.id);
+  const [name, setName] = useState(editingItem.name);
+  const [amount, setAmount] = useState(editingItem.amount);
+  const [placeId, setPlaceId] = useState(editingItem.place.id);
+  const [note, setNote] = useState(editingItem.note);
 
   const getPlaceById = (placeId) => {
     for(let place of places){
@@ -21,10 +22,11 @@ export default function ItemForm() {
 
   // フォームをデフォルト状態に戻す
   const clearForm = () => {
-    setName('');
-    setAmount(1);
-    setPlaceId(1);
-    setNote('');
+    setId(defaultItem.id);
+    setName(defaultItem.name);
+    setAmount(defaultItem.amount);
+    setPlaceId(defaultItem.place.id);
+    setNote(defaultItem.note);
     setSubmitDisabled(true);
     setShowSaveModal(false);
   };
@@ -40,10 +42,11 @@ export default function ItemForm() {
     }
   };
 
-  // 送信ボタン押下時の処理
+  // 保存ボタン押下時の処理
   const handleSubmit = (e) => {
     e.preventDefault();
     const item = {
+      id: id,
       name: name,
       amount: amount,
       place: getPlaceById(placeId),
@@ -51,12 +54,13 @@ export default function ItemForm() {
       note: note
     };
 
-    addItem(item);
+    editMode ? editItem(item) : addItem(item);
     clearForm();
   };
 
   return (
     <Form onSubmit={handleSubmit}>
+      <input type="hidden" value={id} />
       <Form.Group className="mb-3">
         <Form.Label>備品名</Form.Label>
         <Form.Control type="text" value={name} onChange={handleNameChange} />

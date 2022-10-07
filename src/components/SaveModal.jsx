@@ -4,7 +4,7 @@ import ItemForm from "./ItemForm";
 import { ItemContext } from '../context/ItemContext';
 
 export default function SaveModal() {
-  const { showSaveModal, setShowSaveModal } = useContext(ItemContext);
+  const { showSaveModal, setShowSaveModal, editMode } = useContext(ItemContext);
 
   const handleClose = () => {
     setShowSaveModal(false);
@@ -13,7 +13,7 @@ export default function SaveModal() {
   return (
     <Modal show={showSaveModal} onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>備品の追加</Modal.Title>
+        <Modal.Title>備品の{editMode ? '編集' :  '追加'}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <ItemForm />
