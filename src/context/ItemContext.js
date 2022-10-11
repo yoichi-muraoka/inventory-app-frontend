@@ -3,7 +3,7 @@ import { createContext, useState, useEffect } from 'react';
 export const ItemContext = createContext();
 
 export const ItemProvider = ({ children }) => {
-  const API_BASE_URL = 'http://localhost:5000';
+  const API_BASE_URL = 'http://localhost:8080/api';
   const [places, setPlaces] = useState([]);
   const [items, setItems] = useState([]);
 
@@ -32,7 +32,7 @@ export const ItemProvider = ({ children }) => {
     const res = await fetch(`${API_BASE_URL}/items?_page=${currentPage}&_limit=${NUM_PER_PAGE}`);
     const data = await res.json();
     setItems(data);
-    setTotalItems(res.headers.get('X-Total-Count'));
+    setTotalItems(res.headers.get('x-total-count'));
   };
 
   const addItem = async (item) => {
