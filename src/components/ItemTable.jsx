@@ -9,7 +9,7 @@ export default function ItemTable() {
   // 日付のフォーマット
   const formatter = DateTimeFormatter.ofPattern('yyyy年MM月dd日');
   const formatDate = (stringDate) => {
-    const localDate = LocalDate.parse(stringDate);
+    const localDate = LocalDate.parse(stringDate.split('T')[0]);
     return formatter.format(localDate);
   };
 
